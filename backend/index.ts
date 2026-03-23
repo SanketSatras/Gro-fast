@@ -954,20 +954,4 @@ const startServer = async () => {
     });
 };
 
-if (cluster.isPrimary) {
-    const numCPUs = os.cpus().length;
-    logger.info(`Primary ${process.pid} is running. Forking ${numCPUs} workers...`);
-
-    // Fork workers.
-    for (let i = 0; i < numCPUs; i++) {
-        cluster.fork();
-    }
-
-    cluster.on('exit', (worker, code, signal) => {
-        console.log(`Worker ${worker.process.pid} died. Forking a new one...`);
-        cluster.fork();
-    });
-} else {
-    // Workers share the TCP connection
-    startServer();
-}
+startServer();
