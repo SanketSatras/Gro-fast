@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "69b19e280fc0c50c2028c266",
+    "id": "p1773248040625",
+    "name": "Maggie",
+    "price": 15,
+    "image": "https://www.pallimart.com/storage/app/public/product/meta/2022-12-31-63afec630475f.png",
+    "category": "snacks",
+    "badges": [
+      "fresh"
+    ],
+    "stock": 20,
+    "vendorId": "u1772876675750",
+    "shopName": "GREEN MART",
+    "shopLocation": "Dange Chowk",
+    "isApproved": true,
+    "rating": 4.8,
+    "__v": 0
+  }
+]

@@ -1,0 +1,24 @@
+2026/03/20-23:42:17.286 41d0 Reusing MANIFEST C:\Users\Rohit Satras\Downloads\GROFAST1\backend\whatsapp_session\session-vendor_u1773487098255\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/20-23:42:17.288 41d0 Recovering log #2092
+2026/03/20-23:42:17.327 41d0 Reusing old log C:\Users\Rohit Satras\Downloads\GROFAST1\backend\whatsapp_session\session-vendor_u1773487098255\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/002092.log 
+2026/03/20-23:42:22.531 4294 Level-0 table #2108: started
+2026/03/20-23:42:22.580 4294 Level-0 table #2108: 1189063 bytes OK
+2026/03/20-23:42:22.582 4294 Delete type=0 #2092
+2026/03/20-23:42:22.666 4294 Compacting 1@0 + 1@1 files
+2026/03/20-23:42:22.717 4294 Generated table #2109@0: 23432 keys, 509519 bytes
+2026/03/20-23:42:22.726 4294 Generated table #2110@0: 265 keys, 54793 bytes
+2026/03/20-23:42:22.727 4294 Compacted 1@0 + 1@1 files => 564312 bytes
+2026/03/20-23:42:22.728 4294 compacted to: files[ 0 2 14 0 0 0 0 ]
+2026/03/20-23:42:23.979 604 Compacting 1@1 + 10@2 files
+2026/03/20-23:42:24.022 604 Generated table #2111@1: 2140 keys, 2114877 bytes
+2026/03/20-23:42:24.084 604 Generated table #2112@1: 64586 keys, 2203035 bytes
+2026/03/20-23:42:24.182 604 Generated table #2113@1: 102677 keys, 2255308 bytes
+2026/03/20-23:42:24.270 604 Generated table #2114@1: 102741 keys, 2255368 bytes
+2026/03/20-23:42:24.369 604 Generated table #2115@1: 90539 keys, 2240775 bytes
+2026/03/20-23:42:24.437 604 Generated table #2116@1: 69319 keys, 2256200 bytes
+2026/03/20-23:42:24.589 604 Generated table #2117@1: 49395 keys, 2234068 bytes
+2026/03/20-23:42:24.610 604 Generated table #2118@1: 1073 keys, 2133657 bytes
+2026/03/20-23:42:24.663 604 Generated table #2119@1: 13467 keys, 2196611 bytes
+2026/03/20-23:42:24.711 604 Generated table #2120@1: 25587 keys, 1864757 bytes
+2026/03/20-23:42:24.711 604 Compacted 1@1 + 10@2 files => 21754656 bytes
+2026/03/20-23:42:24.712 604 compacted to: files[ 0 1 14 0 0 0 0 ]

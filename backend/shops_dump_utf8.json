@@ -1,0 +1,57 @@
+﻿{
+    "value":  [
+                  {
+                      "_id":  "69ac52b453e5faaa53be0edf",
+                      "id":  "s1772901044073",
+                      "vendorId":  "u1772901044020",
+                      "name":  "Urban Fresh Grocers",
+                      "location":  "wakad",
+                      "distance":  "0 km",
+                      "rating":  5,
+                      "image":  "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800\u0026fit=crop",
+                      "isOpen":  true,
+                      "category":  "Groceries",
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69ac5cac0ac4d6fd79e0ad33",
+                      "id":  "s1772903596606",
+                      "vendorId":  "u1772903596558",
+                      "name":  "Farm Fresh Market",
+                      "location":  "chinchwad",
+                      "distance":  "0 km",
+                      "rating":  5,
+                      "image":  "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800\u0026fit=crop",
+                      "isOpen":  true,
+                      "category":  "Groceries",
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69ac5eb20ac4d6fd79e0ade9",
+                      "id":  "s1772904114642",
+                      "vendorId":  "u1772904114625",
+                      "name":  "Shree Ganesh Mart",
+                      "location":  "Ravet",
+                      "distance":  "0 km",
+                      "rating":  5,
+                      "image":  "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800\u0026fit=crop",
+                      "isOpen":  true,
+                      "category":  "Groceries",
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b531dd51cfe015e3534b33",
+                      "id":  "s1773482461825",
+                      "vendorId":  "u1772876675750",
+                      "name":  "Green Mart",
+                      "location":  "pune",
+                      "distance":  "0 km",
+                      "rating":  5,
+                      "image":  "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800\u0026fit=crop",
+                      "isOpen":  true,
+                      "category":  "Dairy",
+                      "__v":  0
+                  }
+              ],
+    "Count":  4
+}

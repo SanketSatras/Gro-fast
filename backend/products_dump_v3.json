@@ -1,0 +1,259 @@
+﻿{
+    "value":  [
+                  {
+                      "_id":  "69ac4877671b5eb4de246c81",
+                      "id":  "p1772898423214981",
+                      "name":  "milk",
+                      "price":  50,
+                      "image":  "https://images.unsplash.com/photo-1563636619-e9107da6a7ac?w=800\u0026fit=crop",
+                      "category":  "groceries",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  30,
+                      "unit":  "1 unit",
+                      "vendorId":  "u1772871165799",
+                      "shopName":  "Unknown Shop",
+                      "shopLocation":  "Unknown Location",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69ac4877671b5eb4de246c85",
+                      "id":  "p1772898423384171",
+                      "name":  "milk",
+                      "price":  50,
+                      "image":  "https://images.unsplash.com/photo-1563636619-e9107da6a7ac?w=800\u0026fit=crop",
+                      "category":  "dairy",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  50,
+                      "unit":  "1 unit",
+                      "vendorId":  "s2",
+                      "shopName":  "Unknown Shop",
+                      "shopLocation":  "Unknown Location",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69ac530a53e5faaa53be0efa",
+                      "id":  "p1772901130042",
+                      "name":  "Amul Milk",
+                      "price":  30,
+                      "image":  "https://5.imimg.com/data5/SELLER/Default/2022/11/OX/FS/VL/46081969/amul-toned-milk-1000x1000.jpg",
+                      "category":  "dairy",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  34,
+                      "vendorId":  "u1772901044020",
+                      "shopName":  "Urban Fresh Grocers",
+                      "shopLocation":  "wakad",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69ac5d360ac4d6fd79e0ad57",
+                      "id":  "p1772903734263",
+                      "name":  "Amul Milk",
+                      "price":  30,
+                      "image":  "https://5.imimg.com/data5/SELLER/Default/2022/11/OX/FS/VL/46081969/amul-toned-milk-1000x1000.jpg",
+                      "category":  "dairy",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  30,
+                      "vendorId":  "u1772903596558",
+                      "shopName":  "Farm Fresh Market",
+                      "shopLocation":  "chinchwad",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69ac5f110ac4d6fd79e0ae0d",
+                      "id":  "p1772904209564",
+                      "name":  "Amul Milk",
+                      "price":  30,
+                      "image":  "https://5.imimg.com/data5/SELLER/Default/2022/11/OX/FS/VL/46081969/amul-toned-milk-1000x1000.jpg",
+                      "category":  "dairy",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  34,
+                      "vendorId":  "u1772904114625",
+                      "shopName":  "Shree Ganesh Mart",
+                      "shopLocation":  "Ravet",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b1a6740fc0c50c2028c364",
+                      "id":  "p1773250164455",
+                      "name":  "Maggie",
+                      "price":  15,
+                      "image":  "https://m.media-amazon.com/images/I/71T0QfFl+3L._SL1500_.jpg",
+                      "category":  "snacks",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  25,
+                      "vendorId":  "u1772901044020",
+                      "shopName":  "Urban Fresh Grocers",
+                      "shopLocation":  "wakad",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b1a6810fc0c50c2028c369",
+                      "id":  "p1773250177341",
+                      "name":  "Maggie",
+                      "price":  15,
+                      "image":  "https://m.media-amazon.com/images/I/71T0QfFl+3L._SL1500_.jpg",
+                      "category":  "snacks",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  15,
+                      "vendorId":  "u1772903596558",
+                      "shopName":  "Farm Fresh Market",
+                      "shopLocation":  "chinchwad",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b1a68a0fc0c50c2028c36e",
+                      "id":  "p1773250186314",
+                      "name":  "Maggie",
+                      "price":  15,
+                      "image":  "https://m.media-amazon.com/images/I/71T0QfFl+3L._SL1500_.jpg",
+                      "category":  "snacks",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  28,
+                      "vendorId":  "u1772904114625",
+                      "shopName":  "Shree Ganesh Mart",
+                      "shopLocation":  "Ravet",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b1a7950fc0c50c2028c3bb",
+                      "id":  "p1773250453983",
+                      "name":  "Tata Salt",
+                      "price":  25,
+                      "image":  "https://cdn.shopify.com/s/files/1/1147/6900/products/tata_salt_1kg_ec5c7f50-e4f9-472c-9ff9-49bc9b67b9a1_800x.jpg?v=1597483138",
+                      "category":  "groceries",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  14,
+                      "vendorId":  "u1772901044020",
+                      "shopName":  "Urban Fresh Grocers",
+                      "shopLocation":  "wakad",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b1a8540fc0c50c2028c404",
+                      "id":  "p1773250644234",
+                      "name":  "Tata Salt",
+                      "price":  25,
+                      "image":  "https://cdn.shopify.com/s/files/1/1147/6900/products/tata_salt_1kg_ec5c7f50-e4f9-472c-9ff9-49bc9b67b9a1_800x.jpg?v=1597483138",
+                      "category":  "groceries",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  20,
+                      "vendorId":  "u1772903596558",
+                      "shopName":  "Farm Fresh Market",
+                      "shopLocation":  "chinchwad",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b1a9ed0fc0c50c2028c454",
+                      "id":  "p1773251053141",
+                      "name":  "Tata Salt",
+                      "price":  25,
+                      "image":  "https://cdn.shopify.com/s/files/1/1147/6900/products/tata_salt_1kg_ec5c7f50-e4f9-472c-9ff9-49bc9b67b9a1_800x.jpg?v=1597483138",
+                      "category":  "groceries",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  10,
+                      "vendorId":  "u1772904114625",
+                      "shopName":  "Shree Ganesh Mart",
+                      "shopLocation":  "Ravet",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b27098ff37d5d42d41a075",
+                      "id":  "p1773301912106",
+                      "name":  "Amul Panner",
+                      "price":  200,
+                      "image":  "data:image/jpeg;base64,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",
+                      "category":  "dairy",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  17,
+                      "vendorId":  "u1772901044020",
+                      "shopName":  "Urban Fresh Grocers",
+                      "shopLocation":  "wakad",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b2f5ea99fbb51c18d2062e",
+                      "id":  "p1773336042548",
+                      "name":  "Amul Panner",
+                      "price":  200,
+                      "image":  "https://5.imimg.com/data5/SELLER/Default/2023/10/357240080/PA/CL/CR/6974227/81hd14mn91l.jpg",
+                      "category":  "dairy",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  20,
+                      "vendorId":  "u1772903596558",
+                      "shopName":  "Farm Fresh Market",
+                      "shopLocation":  "chinchwad",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  },
+                  {
+                      "_id":  "69b5391f5956fe6513424de0",
+                      "id":  "p1773484319077",
+                      "name":  "Fresh Buffalo Milk",
+                      "price":  68,
+                      "image":  "https://images.unsplash.com/photo-1563636619-e9107da6a7ac?w=800\u0026fit=crop",
+                      "category":  "Dairy",
+                      "badges":  [
+                                     "fresh"
+                                 ],
+                      "stock":  45,
+                      "vendorId":  "u1772876675750",
+                      "shopName":  "Green Mart",
+                      "shopLocation":  "pune",
+                      "isApproved":  true,
+                      "rating":  4.8,
+                      "__v":  0
+                  }
+              ],
+    "Count":  14
+}

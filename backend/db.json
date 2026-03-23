@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": "u1772780062538",
+      "name": "Shivam Khude",
+      "email": "khudeshivam33@gmail.com",
+      "password": "$2b$10$.8WAjXJ1cvreun6AA0buEuIQzVilQX8Tf61xW83nUy3sCNRy0pv02",
+      "role": "customer"
+    }
+  ],
+  "products": [],
+  "orders": [],
+  "shops": [
+    {
+      "id": "s1",
+      "name": "Green Farms Organic",
+      "location": "Amravati Road, Nagpur",
+      "distance": "1.2 km",
+      "rating": 4.8,
+      "image": "https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&fit=crop",
+      "isOpen": true,
+      "category": "Groceries"
+    },
+    {
+      "id": "s2",
+      "name": "Dairy Delight Hub",
+      "location": "Civil Lines, Nagpur",
+      "distance": "2.5 km",
+      "rating": 4.5,
+      "image": "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?w=800&fit=crop",
+      "isOpen": true,
+      "category": "Dairy"
+    }
+  ],
+  "productRequests": []
+}
