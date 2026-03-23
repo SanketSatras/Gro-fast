@@ -88,8 +88,11 @@ app.use(cors({
             'http://localhost:3000',
             'http://localhost:5000'
         ];
-        logger.info(`CORS Check - Origin: ${origin}, Allowed: ${allowedLinks.includes(origin || '')}`);
-        if (!origin || allowedLinks.indexOf(origin) !== -1) {
+        
+        const isAllowed = !origin || allowedLinks.includes(origin) || origin.endsWith('.pages.dev');
+        logger.info(`CORS Check - Origin: ${origin}, Allowed: ${isAllowed}`);
+        
+        if (isAllowed) {
             callback(null, true);
         } else {
             logger.warn(`CORS Blocked: ${origin}`);
