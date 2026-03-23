@@ -948,8 +948,9 @@ app.get('/api/admin/logs', verifyToken, authorize(['admin']), async (req, res) =
 const startServer = async () => {
     await connectDB();
     // WhatsApp engines are now initialized per-vendor on demand
-    app.listen(PORT, () => {
-        logger.info(`Worker ${process.pid} started and listening on port ${PORT}`);
+    const PORT_NUM = parseInt(PORT.toString(), 10) || 5000;
+    app.listen(PORT_NUM, '0.0.0.0', () => {
+        logger.info(`Worker ${process.pid} started and listening on 0.0.0.0:${PORT_NUM}`);
     });
 };
 
