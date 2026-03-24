@@ -23,9 +23,9 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
           'router-vendor': ['react-router-dom'],
-          'lucide-icons': ['lucide-react'],
           'query-vendor': ['@tanstack/react-query'],
           'ui-vendor': [
+            'lucide-react',
             '@radix-ui/react-accordion',
             '@radix-ui/react-alert-dialog',
             '@radix-ui/react-aspect-ratio',
