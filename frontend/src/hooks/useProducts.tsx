@@ -26,11 +26,16 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
     const refreshProducts = useCallback(async () => {
         setIsLoading(true);
         try {
+            // Products might be public, but let's only fetch if we have a user to be safe
+            // or if the endpoint allows public access.
             const apiProducts = await apiFetch('/products');
             if (apiProducts) setProducts(apiProducts);
 
-            const apiRequests = await apiFetch('/products/requests');
-            if (apiRequests) setProductRequests(apiRequests);
+            // Requests are definitely private
+            if (localStorage.getItem('grofast-token')) {
+                const apiRequests = await apiFetch('/products/requests');
+                if (apiRequests) setProductRequests(apiRequests);
+            }
         } catch (error) {
             console.error("Failed to fetch data from API", error);
             const savedProducts = localStorage.getItem('grofast-products');
@@ -45,7 +50,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
     // Load from API and local storage
     useEffect(() => {
         refreshProducts();
-    }, []);
+    }, [refreshProducts]);
 
     // Save to local storage
     useEffect(() => {

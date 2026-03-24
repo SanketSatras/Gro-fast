@@ -20,14 +20,13 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     useEffect(() => {
         const fetchOrders = async () => {
+            if (!user) return; // Guard against unauthenticated calls
             try {
                 let params = '';
-                if (user) {
-                    if (user.role === 'delivery') {
-                        params = `?role=delivery`;
-                    } else {
-                        params = `?role=${user.role}&userId=${user.id}&vendorId=${user.id}&name=${encodeURIComponent(user.name)}`;
-                    }
+                if (user.role === 'delivery') {
+                    params = `?role=delivery`;
+                } else {
+                    params = `?role=${user.role}&userId=${user.id}&vendorId=${user.id}&name=${encodeURIComponent(user.name)}`;
                 }
                 const apiOrders = await apiFetch(`/orders${params}`);
                 setOrders(apiOrders);
@@ -37,7 +36,9 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 if (saved) setOrders(JSON.parse(saved));
             }
         };
-        fetchOrders();
+        if (user) {
+            fetchOrders();
+        }
         
         // Auto-refresh orders every 10 seconds to sync Deliveries across Vendor and Customer apps
         const interval = setInterval(fetchOrders, 10000);
