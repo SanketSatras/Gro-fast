@@ -19,8 +19,15 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
     if (!isAuthenticated) {
         // If user is not authenticated, redirect to the appropriate login page
-        // Defaulting to customer login for now, but we could be smarter
-        return <Navigate to="/auth/customer" state={{ from: location }} replace />;
+        let loginPath = "/auth/customer";
+        
+        if (location.pathname.startsWith("/vendor")) {
+            loginPath = "/auth/vendor";
+        } else if (location.pathname.startsWith("/delivery")) {
+            loginPath = "/auth/delivery";
+        }
+        
+        return <Navigate to={loginPath} state={{ from: location }} replace />;
     }
 
     if (allowedRoles && !allowedRoles.includes(user!.role)) {
