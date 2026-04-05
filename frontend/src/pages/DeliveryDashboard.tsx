@@ -32,21 +32,21 @@ export default function DeliveryDashboard() {
     return (
         <div className="min-h-screen bg-slate-50 font-sans">
             {/* Navigation Header */}
-            <nav className="sticky top-0 z-50 bg-white border-b border-slate-100 px-6 py-5">
+            <nav className="sticky top-0 z-50 bg-white border-b border-slate-100 px-4 sm:px-6 py-4 sm:py-5">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                        <Link to="/" className="p-2 hover:bg-slate-50 rounded-full transition-all">
+                    <div className="flex items-center gap-3 sm:gap-6">
+                        <Link to="/" className="p-1.5 sm:p-2 hover:bg-slate-50 rounded-full transition-all">
                             <ArrowLeft className="w-4 h-4 text-slate-800" />
                         </Link>
                         <div>
-                            <div className="flex items-center gap-3 mb-1">
-                                <img src="/icon-512.png" alt="Grofast Logo" className="w-12 h-12 object-contain" />
-                                <h1 className="text-[28px] font-black text-[#0f9d58] tracking-tighter uppercase leading-none">GROFAST</h1>
+                            <div className="flex items-center gap-2 sm:gap-3 mb-0.5 sm:mb-1">
+                                <img src="/icon-512.png" alt="Grofast Logo" className="w-8 h-8 sm:w-12 sm:h-12 object-contain" />
+                                <h1 className="text-xl sm:text-[28px] font-black text-[#0f9d58] tracking-tighter uppercase leading-none">GROFAST</h1>
                             </div>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1.5">PARTNER: {user?.name || 'Driver'}</p>
+                            <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 sm:mt-1.5">PARTNER: {user?.name || 'Driver'}</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4">
                         <div className="hidden md:flex items-center gap-4">
                             <Link
                                 to="/profile"
@@ -68,25 +68,25 @@ export default function DeliveryDashboard() {
 
                         <button 
                             onClick={handleLogout} 
-                            className="md:hidden p-3 rounded-2xl bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all"
+                            className="md:hidden p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all"
                         >
-                            <LogOut className="w-5 h-5" />
+                            <LogOut className="w-4 h-4 sm:w-5 sm:h-5" />
                         </button>
                     </div>
                 </div>
             </nav>
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12">
                 {/* Hero / Stats Section */}
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 sm:mb-14"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-14"
                 >
-                    <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-blue-600/20">
+                    <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2rem] sm:rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-blue-600/20">
                         <div className="absolute top-0 right-0 -mr-16 -mt-16 sm:-mr-8 sm:-mt-8 w-48 h-48 sm:w-64 sm:h-64 bg-white/10 rounded-full blur-3xl"></div>
                         <div className="relative z-10 flex flex-col h-full bg-cover justify-between">
-                            <div className="flex items-start justify-between mb-8 sm:mb-12">
+                            <div className="flex items-start justify-between mb-6 sm:mb-12">
                                 <div>
                                     <p className="text-blue-100 font-bold uppercase tracking-widest text-xs mb-2">Active Deliveries</p>
                                     <h2 className="text-6xl sm:text-7xl font-black leading-none">{activeOrders.length}</h2>
