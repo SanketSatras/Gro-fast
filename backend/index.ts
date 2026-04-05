@@ -224,7 +224,11 @@ const validatePhone = (phone: string) => {
 // Auth Routes with specific strict limiting for sensitive endpoints
 app.post('/api/auth/register', authLimiter, async (req, res) => {
     try {
-        const { name, email, phone, password, role, shopName, shopLocation, shopCategory } = req.body;
+        let { name, email, phone, password, role, shopName, shopLocation, shopCategory } = req.body;
+        
+        if (email) {
+            email = email.trim().toLowerCase();
+        }
 
         if (!validateEmail(email)) {
             return res.status(400).json({ message: 'Only @gmail.com email addresses are allowed' });
@@ -293,7 +297,11 @@ app.post('/api/auth/register', authLimiter, async (req, res) => {
 
 app.post('/api/auth/login', authLimiter, async (req, res) => {
     try {
-        const { email, password } = req.body;
+        let { email, password } = req.body;
+
+        if (email) {
+            email = email.trim().toLowerCase();
+        }
 
         // Hardcoded admin access per user request
         if (email === 'sanket@gmail.com' && password === '12345') {

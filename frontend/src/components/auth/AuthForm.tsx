@@ -219,7 +219,7 @@ export function AuthForm({ role, title }: AuthFormProps) {
                         type="email"
                         placeholder="name@gmail.com"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value.trim())}
                         autoComplete="email"
                         className={`h-16 rounded-2xl border-slate-100 focus-visible:ring-[#10B981] font-black px-6 placeholder:text-slate-400 shadow-sm ${!isLogin && email && !email.toLowerCase().endsWith('@gmail.com') ? 'bg-rose-50 text-rose-900' : 'bg-[#ebf2ff] text-slate-800'}`}
                         required
