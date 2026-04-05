@@ -1,4 +1,4 @@
-const CACHE_NAME = 'grofast-v2'; // Changed version to force update
+const CACHE_NAME = 'grofast-v3'; // Changed version to force update
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
