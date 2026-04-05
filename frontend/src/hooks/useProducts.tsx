@@ -31,10 +31,17 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
             const apiProducts = await apiFetch('/products');
             if (apiProducts) setProducts(apiProducts);
 
-            // Requests are definitely private
-            if (localStorage.getItem('grofast-token')) {
-                const apiRequests = await apiFetch('/products/requests');
-                if (apiRequests) setProductRequests(apiRequests);
+            // Requests are only accessible by admin and vendor roles
+            const token = localStorage.getItem('grofast-token');
+            const userStr = localStorage.getItem('grofast-user');
+            if (token && userStr) {
+                try {
+                    const user = JSON.parse(userStr);
+                    if (user.role === 'admin' || user.role === 'vendor') {
+                        const apiRequests = await apiFetch('/products/requests');
+                        if (apiRequests) setProductRequests(apiRequests);
+                    }
+                } catch {}
             }
         } catch (error) {
             console.error("Failed to fetch data from API", error);
