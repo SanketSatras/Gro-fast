@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Store, LineChart, ShieldCheck, Activity, ShoppingBag, ArrowLeft, CheckCircle, XCircle, Image as ImageIcon, ExternalLink, Search } from 'lucide-react';
+import { Store, LineChart, ShieldCheck, Activity, ShoppingBag, ArrowLeft, CheckCircle, XCircle, Image as ImageIcon, ExternalLink, Search, Eye, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useProducts } from '@/hooks/useProducts';
 import { useOrders } from '@/hooks/useOrders';
@@ -24,6 +24,7 @@ export default function AdminDashboard() {
     const [adminImage, setAdminImage] = useState('');
     const [logs, setLogs] = useState<any[]>([]);
     const [isLoadingLogs, setIsLoadingLogs] = useState(false);
+    const [previewProduct, setPreviewProduct] = useState<any | null>(null);
 
     useEffect(() => {
         if (activeTab === 'logs') {
@@ -306,7 +307,13 @@ export default function AdminDashboard() {
                                 {selectedRequest === req.id && adminImage && (
                                     <div className="bg-secondary/20 p-6 border-t border-border/50 flex items-center justify-center h-56 relative group">
                                         <img src={adminImage} className="h-full object-contain rounded-2xl shadow-lift bg-white" onError={(e) => (e.currentTarget.src = "")} />
-                                        <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-lg text-[9px] font-black uppercase tracking-widest border border-border shadow-sm">Preview Mode</div>
+                                        <button
+                                            onClick={() => setPreviewProduct(req)}
+                                            className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest border border-border shadow-sm flex items-center gap-1.5 hover:bg-primary hover:text-white hover:border-primary transition-all cursor-pointer"
+                                        >
+                                            <Eye className="w-3 h-3" />
+                                            Preview
+                                        </button>
                                     </div>
                                 )}
                             </motion.div>
@@ -386,6 +393,84 @@ export default function AdminDashboard() {
                                 </TableBody>
                             </Table>
                         </div>
+                    </div>
+                )}
+
+                {/* Product Preview Modal */}
+                {previewProduct && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setPreviewProduct(null)}>
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="bg-white rounded-[2rem] shadow-2xl max-w-lg w-full mx-4 overflow-hidden"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Modal Header */}
+                            <div className="flex items-center justify-between p-6 border-b border-border/50">
+                                <h3 className="text-lg font-black tracking-tight">Product Details</h3>
+                                <button onClick={() => setPreviewProduct(null)} className="p-2 rounded-xl hover:bg-secondary transition-all">
+                                    <X className="w-5 h-5 text-muted-foreground" />
+                                </button>
+                            </div>
+
+                            {/* Product Image */}
+                            {(adminImage || previewProduct.image) && (
+                                <div className="bg-secondary/20 flex items-center justify-center h-56">
+                                    <img
+                                        src={adminImage || previewProduct.image}
+                                        alt={previewProduct.name}
+                                        className="h-full object-contain rounded-xl"
+                                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                                    />
+                                </div>
+                            )}
+
+                            {/* Product Info */}
+                            <div className="p-6 space-y-4">
+                                <div>
+                                    <h4 className="text-2xl font-black text-foreground tracking-tight">{previewProduct.name}</h4>
+                                    {previewProduct.description && (
+                                        <p className="text-sm text-muted-foreground mt-1">{previewProduct.description}</p>
+                                    )}
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="bg-secondary/30 rounded-xl p-3">
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-1">Category</p>
+                                        <p className="text-sm font-bold text-foreground">{previewProduct.category}</p>
+                                    </div>
+                                    <div className="bg-secondary/30 rounded-xl p-3">
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-1">Price</p>
+                                        <p className="text-sm font-black text-primary">₹{previewProduct.price}</p>
+                                    </div>
+                                    <div className="bg-secondary/30 rounded-xl p-3">
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-1">Stock</p>
+                                        <p className="text-sm font-bold text-foreground">{previewProduct.stock} {previewProduct.unit}</p>
+                                    </div>
+                                    <div className="bg-secondary/30 rounded-xl p-3">
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-1">Vendor ID</p>
+                                        <p className="text-sm font-bold text-foreground">{previewProduct.vendorId}</p>
+                                    </div>
+                                </div>
+
+                                <div className="bg-secondary/30 rounded-xl p-3">
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mb-1">Shop</p>
+                                    <p className="text-sm font-bold text-foreground">
+                                        {shops.find(s => s.vendorId === previewProduct.vendorId)?.name || previewProduct.shopName || 'Unknown Shop'}
+                                        {previewProduct.shopLocation && <span className="text-muted-foreground"> · {previewProduct.shopLocation}</span>}
+                                    </p>
+                                </div>
+
+                                <div className="flex gap-3 pt-2">
+                                    <Button onClick={() => { setPreviewProduct(null); handleApprove(previewProduct.id); }} className="flex-1 gradient-emerald text-white font-black rounded-xl h-11 shadow-emerald">
+                                        PUBLISH
+                                    </Button>
+                                    <Button variant="outline" onClick={() => { setPreviewProduct(null); handleReject(previewProduct.id); }} className="border-border hover:bg-destructive/10 hover:text-destructive rounded-xl h-11 font-black transition-all">
+                                        REJECT
+                                    </Button>
+                                </div>
+                            </div>
+                        </motion.div>
                     </div>
                 )}
             </main>
