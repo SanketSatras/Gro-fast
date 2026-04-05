@@ -368,33 +368,35 @@ export default function VendorDashboard() {
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1.5">VENDOR: {user?.name}</p>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-4">
-              <Link
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Link
                 to="/profile"
-                className="flex items-center gap-3 bg-[#f0fbf7] pl-3 pr-8 py-2.5 rounded-full hover:bg-[#e8f5ed] transition-all cursor-pointer group/badge"
-              >
-                <div className="w-8 h-8 rounded-full bg-[#dcfce7] flex items-center justify-center text-[#10b981] group-hover/badge:scale-105 transition-transform">
-                  <Store className="w-4 h-4" />
+                className="flex items-center gap-2 sm:gap-3 bg-[#f0fbf7] pl-1.5 pr-4 sm:pl-3 sm:pr-8 py-1.5 sm:py-2.5 rounded-full hover:bg-[#e8f5ed] transition-all cursor-pointer group/badge"
+            >
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-[#dcfce7] flex items-center justify-center text-[#10b981] group-hover/badge:scale-105 transition-transform shrink-0">
+                    <Store className="w-3 h-3 sm:w-4 sm:h-4" />
                 </div>
-                <div>
-                  <p className="text-[7.5px] font-bold text-slate-400 uppercase tracking-[0.2em] leading-none mb-1">Official Vendor</p>
-                  <p className="text-[11px] font-black text-slate-800 leading-none tracking-wide">{user?.name}</p>
+                <div className="flex flex-col justify-center">
+                    <p className="text-[5.5px] sm:text-[7.5px] font-bold text-slate-400 uppercase tracking-[0.15em] sm:tracking-[0.2em] leading-none mb-0.5 sm:mb-1">Official Vendor</p>
+                    <p className="text-[8.5px] sm:text-[11px] font-black text-slate-800 leading-none tracking-wide truncate max-w-[50px] sm:max-w-none">{user?.name}</p>
                 </div>
-              </Link>
-              <button
-               onClick={handleLogout} className="p-3 rounded-2xl bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all group lg:p-4">
-                <LogOut className="w-5 h-5 lg:w-6 lg:h-6" />
-              </button>
+            </Link>
+            
+            <div className="hidden sm:flex items-center">
               <button 
                 onClick={() => sendLocalNotification('Hello Vendor!', { body: 'This is a test notification from Grofast.' })}
-                className="p-3 rounded-2xl bg-emerald-50 text-emerald-500 hover:bg-emerald-100 transition-all lg:p-4"
+                className="p-3 rounded-2xl bg-emerald-50 text-emerald-500 hover:bg-emerald-100 transition-all mr-4"
                 title="Test Notifications"
               >
                 <AlertTriangle className="w-5 h-5 lg:w-6 lg:h-6" />
               </button>
             </div>
 
+            <button
+                onClick={handleLogout} className="p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all shrink-0">
+                <LogOut className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" />
+            </button>
+          
             <button 
               onClick={() => {
                 logout();
