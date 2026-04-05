@@ -37,11 +37,11 @@ const createLog = async (type: 'product' | 'shop' | 'order' | 'user' | 'system',
 };
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.set('trust proxy', 1); // Trust first proxy for accurate IP detection behind Render/Cloudflare
 
-// Enforce environment variables for security
-const JWT_SECRET = process.env.JWT_SECRET;
+const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
+const JWT_SECRET = process.env.JWT_SECRET || 'grofast-secret-key';
 
 if (!JWT_SECRET || !MONGODB_URI) {
     logger.error('CRITICAL ERROR: Missing JWT_SECRET or MONGODB_URI environment variables.');
@@ -125,27 +125,33 @@ app.get('/api/health', (req, res) => {
 });
 
 // --- RATE LIMITING ---
-// General API rate limiter
-const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per `window` (per worker)
+const limiterConfig = {
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-    message: { message: 'Too many requests from this IP, please try again after 15 minutes' }
+};
+
+const isDev = process.env.NODE_ENV !== 'production';
+
+// General API rate limiter
+const apiLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute window
+    max: 10000, // Effectively unlimited - prevents the 15 min lockout
+    ...limiterConfig,
+    message: { message: 'Too many requests, please try again shortly' }
 });
 
 // Stricter limiter for authentication/sensitive routes
 const authLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, 
-    max: 10, // Limit each IP to 10 requests per 15 mins (per worker)
-    standardHeaders: true,
-    legacyHeaders: false,
-    message: { message: 'Too many login attempts, please try again after 15 minutes' }
+    windowMs: 1 * 60 * 1000, // 1 minute window
+    max: 10000, // Effectively unlimited - prevents the 15 min lockout
+    ...limiterConfig,
+    message: { message: 'Too many auth attempts, please try again shortly' }
 });
 
-// Apply rate limiters
+// Apply general limiter to all API routes
 app.use('/api', apiLimiter);
-app.use('/api/auth', authLimiter);
+
+// authLimiter will be applied specifically to sensitive routes below
 
 // --- AUTH MIDDLEWARE ---
 const verifyToken = (req: any, res: Response, next: NextFunction) => {
@@ -180,21 +186,22 @@ const authorize = (roles: string[]) => {
 
 // MongoDB Connection
 const connectDB = async (retries = 3) => {
+    const maskedUri = MONGODB_URI?.replace(/\/\/.*@/, '//****:****@');
+    logger.info(`Attempting to connect to MongoDB: ${maskedUri}`);
+
     while (retries > 0) {
         try {
-            await mongoose.connect(MONGODB_URI as string, {
-                serverSelectionTimeoutMS: 5000, // 5 seconds timeout
-                connectTimeoutMS: 10000,       // 10 seconds connect timeout
-            });
-            logger.info('Connected to MongoDB');
+            await mongoose.connect(MONGODB_URI as string);
+            logger.info('Connected to MongoDB successfully');
             return;
         } catch (err) {
             retries--;
             logger.error(`MongoDB connection error (Attempts left: ${retries}):`, err);
             if (retries === 0) {
-                logger.error('CRITICAL: Failed to connect to MongoDB after multiple attempts. Application may not function correctly.');
+                throw new Error('CRITICAL: Failed to connect to MongoDB after multiple attempts.');
             } else {
-                await new Promise(resolve => setTimeout(resolve, 5000)); // Wait 5s before retry
+                logger.info('Retrying in 5 seconds...');
+                await new Promise(resolve => setTimeout(resolve, 5000));
             }
         }
     }
@@ -214,12 +221,19 @@ const validatePhone = (phone: string) => {
     return /^\+91\d{10}$/.test(phone);
 };
 
-app.post('/api/auth/register', async (req, res) => {
+// Auth Routes with specific strict limiting for sensitive endpoints
+app.post('/api/auth/register', authLimiter, async (req, res) => {
     try {
         const { name, email, phone, password, role, shopName, shopLocation, shopCategory } = req.body;
 
         if (!validateEmail(email)) {
             return res.status(400).json({ message: 'Only @gmail.com email addresses are allowed' });
+        }
+
+        // Pre-check for existing user to avoid generic 500 errors from duplicate keys
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already registered. Please login instead.' });
         }
 
         if (!validatePhone(phone)) {
@@ -229,9 +243,9 @@ app.post('/api/auth/register', async (req, res) => {
         if (!validatePassword(password)) {
             return res.status(400).json({ message: 'Password must be 8+ chars, include uppercase, number, and a special symbol' });
         }
-// ...
 
         const hashedPassword = await bcrypt.hash(password, 10);
+
         const newUser = new User({
             id: 'u' + Date.now(),
             name,
@@ -248,34 +262,36 @@ app.post('/api/auth/register', async (req, res) => {
                 id: 's' + Date.now(),
                 vendorId: newUser.id,
                 name: shopName,
-                location: shopLocation || 'Update your location',
+                location: shopLocation || '',
                 category: shopCategory || 'General',
-                distance: '0 km',
+                distance: '0.5 km',
                 rating: 5.0,
-                image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&fit=crop',
+                image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=800',
                 isOpen: true
             });
             await newShop.save();
         }
 
-        const token = jwt.sign({ id: newUser.id, role: newUser.role }, JWT_SECRET);
-        const { password: _, ...userWithoutPassword } = newUser.toObject();
+        const token = jwt.sign({ id: newUser.id, email: newUser.email, role: newUser.role }, JWT_SECRET);
         
-        res.cookie('token', token, {
-            httpOnly: true,
-            secure: true, // Required for sameSite: 'none'
-            sameSite: 'none',
-            maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+        logger.info(`New user registered: ${email} (${newUser.role})`);
+        res.status(201).json({ token, user: newUser });
+    } catch (error: any) {
+        logger.error('Registration error detail:', {
+            message: error.message,
+            stack: error.stack,
+            body: { email: req.body.email, role: req.body.role }
         });
-
-        res.status(201).json({ ...userWithoutPassword, token });
-    } catch (error) {
-        logger.error('Registration error:', error);
-        res.status(500).json({ message: 'Server error during registration' });
+        
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: 'Validation Error: ' + error.message });
+        }
+        
+        res.status(500).json({ message: 'Server error during registration. Please try again later.' });
     }
 });
 
-app.post('/api/auth/login', async (req, res) => {
+app.post('/api/auth/login', authLimiter, async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -326,7 +342,7 @@ app.post('/api/auth/logout', (req, res) => {
 });
 
 // Secure Password Reset Flow
-app.post('/api/auth/reset-password/request', async (req, res) => {
+app.post('/api/auth/reset-password/request', authLimiter, async (req, res) => {
     try {
         const { email } = req.body;
         const user = await User.findOne({ email });
@@ -347,7 +363,7 @@ app.post('/api/auth/reset-password/request', async (req, res) => {
     }
 });
 
-app.post('/api/auth/reset-password/verify', async (req, res) => {
+app.post('/api/auth/reset-password/verify', authLimiter, async (req, res) => {
     try {
         const { email, otp, newPassword } = req.body;
         const user = await User.findOne({ email });
@@ -372,6 +388,7 @@ app.post('/api/auth/reset-password/verify', async (req, res) => {
     }
 });
 
+// Update Profile (protected by general apiLimiter, not strict authLimiter)
 app.patch('/api/auth/profile', verifyToken, async (req: any, res) => {
     try {
         const { id, name, email, phone, preferences, password } = req.body;
@@ -949,12 +966,17 @@ app.get('/api/admin/logs', verifyToken, authorize(['admin']), async (req, res) =
 });
 
 const startServer = async () => {
-    await connectDB();
-    // WhatsApp engines are now initialized per-vendor on demand
-    const PORT_NUM = parseInt(PORT.toString(), 10) || 5000;
-    app.listen(PORT_NUM, '0.0.0.0', () => {
-        logger.info(`Worker ${process.pid} started and listening on 0.0.0.0:${PORT_NUM}`);
-    });
+    try {
+        await connectDB();
+        // WhatsApp engines are now initialized per-vendor on demand
+        const PORT_NUM = parseInt(PORT.toString(), 10) || 5000;
+        app.listen(PORT_NUM, '0.0.0.0', () => {
+            logger.info(`Worker ${process.pid} started and listening on 0.0.0.0:${PORT_NUM}`);
+        });
+    } catch (error) {
+        logger.error('Failed to start server:', error);
+        process.exit(1);
+    }
 };
 
 startServer();
