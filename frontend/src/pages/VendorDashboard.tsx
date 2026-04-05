@@ -395,13 +395,14 @@ export default function VendorDashboard() {
               </button>
             </div>
 
-            <Link 
-              to="/auth/delivery"
+            <a 
+              href="/auth/delivery"
               target="_blank"
+              rel="noopener noreferrer"
               className="hidden md:flex items-center gap-2 bg-indigo-50 text-indigo-600 px-4 py-2 rounded-full hover:bg-indigo-100 transition-all text-[10px] font-bold uppercase tracking-[0.15em] h-10 shadow-none border-none"
             >
               <Truck className="w-3.5 h-3.5" /> Delivery Login
-            </Link>
+            </a>
 
             <Dialog open={isAdding} onOpenChange={setIsAdding}>
               <DialogTrigger asChild>
