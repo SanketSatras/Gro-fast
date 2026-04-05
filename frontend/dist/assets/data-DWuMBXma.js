@@ -1,0 +1,1 @@
+const e=[{id:"all",label:"All",emoji:"🛒"},{id:"groceries",label:"Groceries",emoji:"🥬"},{id:"bakery",label:"Bakery",emoji:"🍞"},{id:"dairy",label:"Dairy",emoji:"🥛"},{id:"snacks",label:"Snacks",emoji:"🍿"},{id:"fruits",label:"Fruits",emoji:"🍎"}];export{e as c};
