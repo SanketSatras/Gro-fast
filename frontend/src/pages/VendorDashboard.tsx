@@ -398,7 +398,7 @@ export default function VendorDashboard() {
             <button 
               onClick={() => {
                 logout();
-                navigate('/auth/delivery');
+                window.location.href = '/auth/delivery';
               }}
               className="flex items-center gap-2 bg-indigo-50 text-indigo-600 px-3 sm:px-4 py-2 rounded-full hover:bg-indigo-100 transition-all text-[9.5px] sm:text-[10px] font-bold uppercase tracking-[0.15em] h-10 shadow-none border-none cursor-pointer whitespace-nowrap"
             >
