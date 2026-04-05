@@ -24,6 +24,7 @@ export function AuthForm({ role, title }: AuthFormProps) {
     const [shopName, setShopName] = useState("");
     const [shopLocation, setShopLocation] = useState("");
     const [shopCategory, setShopCategory] = useState("Groceries");
+    const [isLoading, setIsLoading] = useState(false);
     const { login, isAuthenticated, user } = useAuth();
     const navigate = useNavigate();
 
@@ -56,6 +57,7 @@ export function AuthForm({ role, title }: AuthFormProps) {
             }
         }
 
+        setIsLoading(true);
         try {
             if (isReset) {
                 await apiFetch('/auth/reset-password', {
@@ -91,6 +93,8 @@ export function AuthForm({ role, title }: AuthFormProps) {
             else navigate("/");
         } catch (error: any) {
             toast.error(error.message || "Failed to authenticate. Please try again.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -252,8 +256,12 @@ export function AuthForm({ role, title }: AuthFormProps) {
                     )}
                 </div>
 
-                <Button type="submit" className="w-full h-16 bg-[#10B981] hover:bg-[#059669] text-white font-black text-sm uppercase tracking-[0.2em] rounded-[1.25rem] shadow-xl shadow-emerald-100/50 transition-all mt-6 active:scale-[0.98]">
-                    {isReset ? "CONFIRM RESET" : (isLogin ? "SIGN IN NOW" : "REGISTER WITH US")}
+                <Button 
+                    type="submit" 
+                    disabled={isLoading}
+                    className="w-full h-16 bg-[#10B981] hover:bg-[#059669] text-white font-black text-sm uppercase tracking-[0.2em] rounded-[1.25rem] shadow-xl shadow-emerald-100/50 transition-all mt-6 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                    {isLoading ? "PROCESSING..." : (isReset ? "CONFIRM RESET" : (isLogin ? "SIGN IN NOW" : "REGISTER WITH US"))}
                 </Button>
             </form>
 
