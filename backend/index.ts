@@ -767,14 +767,13 @@ app.patch('/api/products/:id/stock', verifyToken, authorize(['vendor']), async (
     }
 });
 
-// --- WHATSAPP VENDOR API ---
-app.get('/api/vendor/whatsapp/status/:vendorId', (req, res) => {
+app.get('/api/vendor/wa/status/:vendorId', (req, res) => {
     const { vendorId } = req.params;
     const status = whatsappManager.getStatus(vendorId);
     res.json(status);
 });
 
-app.post('/api/vendor/whatsapp/connect/:vendorId', async (req, res) => {
+app.post('/api/vendor/wa/connect/:vendorId', async (req, res) => {
     try {
         const { vendorId } = req.params;
         const engine = await whatsappManager.getEngine(vendorId);

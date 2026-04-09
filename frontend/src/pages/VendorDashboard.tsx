@@ -89,7 +89,7 @@ export default function VendorDashboard() {
     if (activeTab === 'whatsapp' && user?.id) {
       const fetchStatus = async () => {
         try {
-          const status = await apiFetch(`/vendor/whatsapp/status/${user.id}`);
+          const status = await apiFetch(`/vendor/wa/status/${user.id}`);
           setWhatsappStatus(status);
         } catch (error) {
           console.error("Error fetching WhatsApp status:", error);
@@ -106,7 +106,7 @@ export default function VendorDashboard() {
     if (!user?.id) return;
     try {
       setIsConnecting(true);
-      await apiFetch(`/vendor/whatsapp/connect/${user.id}`, { method: 'POST' });
+      await apiFetch(`/vendor/wa/connect/${user.id}`, { method: 'POST' });
       toast.success("WhatsApp initialization started. Please wait for the QR code.");
     } catch (error: any) {
       toast.error("Failed to start WhatsApp: " + error.message);
