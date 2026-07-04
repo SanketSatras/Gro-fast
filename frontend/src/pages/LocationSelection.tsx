@@ -1,10 +1,10 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useShops } from "@/hooks/useShops";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { CartDrawer } from "@/components/marketplace/CartDrawer";
-import { BottomNav } from "@/components/marketplace/BottomNav";
+import { LocationModal } from "@/components/marketplace/LocationModal";
 import {
     ShoppingCart, Search, MapPin, ChevronDown,
     Star, Clock, LogOut, Store, Zap, ArrowRight,
@@ -83,9 +83,9 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MAIN PAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const LocationSelection = () => {
     const [search, setSearch] = useState("");
+    const [isLocationOpen, setIsLocationOpen] = useState(false);
+    const [customLocation, setCustomLocation] = useState(localStorage.getItem("grofast-custom-location"));
     const { user, logout, isAuthenticated } = useAuth();
-    const { shops, isLoading } = useShops();
-    const cart = useCart();
 
     const sortedShops = [...shops].sort((a, b) => b.id.localeCompare(a.id));
     const filtered = sortedShops.filter(
@@ -94,11 +94,11 @@ const LocationSelection = () => {
     );
 
     const deliveryAddress = (() => {
+        if (customLocation) return customLocation;
         if (!user?.addresses || user.addresses.length === 0) return null;
         const def = user.addresses.find(a => a.isDefault) ?? user.addresses[0];
         return def?.address ?? null;
     })();
-
     const dashboardLink = user?.role === "vendor"   ? "/vendor"
                         : user?.role === "admin"    ? "/admin"
                         : user?.role === "delivery" ? "/delivery"
@@ -118,13 +118,13 @@ const LocationSelection = () => {
                             GRO<span className="text-[#0f9d58]">FAST</span>
                         </span>
                     </Link>
-                    <Link to={isAuthenticated ? "/profile" : "/auth/customer"} className="flex items-center gap-1.5 shrink-0 pl-3 border-l border-slate-100 group">
+                    <div onClick={() => setIsLocationOpen(true)} className="cursor-pointer flex items-center gap-1.5 shrink-0 pl-3 border-l border-slate-100 group">
                         <MapPin className="w-3.5 h-3.5 text-[#0f9d58] shrink-0" />
                         <span className="text-xs font-semibold text-slate-500 max-w-[100px] sm:max-w-[130px] truncate">
                             {deliveryAddress ?? (isAuthenticated ? "Add address" : "Set location")}
                         </span>
                         <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />
-                    </Link>
+                    </div>
 
 
 
@@ -503,6 +503,7 @@ const LocationSelection = () => {
                 onRemove={cart.removeItem}
             />
 
+            <LocationModal isOpen={isLocationOpen} onClose={() => setIsLocationOpen(false)} onSelectLocation={(loc) => { setCustomLocation(loc); localStorage.setItem("grofast-custom-location", loc); }} />
             <BottomNav cartCount={cart.totalItems} onCartClick={() => cart.setIsOpen(true)} />
         </div>
     );
