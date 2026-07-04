@@ -41,7 +41,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
                         const apiRequests = await apiFetch('/products/requests');
                         if (apiRequests) setProductRequests(apiRequests);
                     }
-                } catch {}
+                } catch { /* requests not available for this role */ }
             }
         } catch (error) {
             console.error("Failed to fetch data from API", error);

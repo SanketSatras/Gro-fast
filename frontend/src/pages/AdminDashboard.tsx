@@ -262,8 +262,7 @@ export default function AdminDashboard() {
 
                 {/* ── Sidebar ── */}
                 <AnimatePresence>
-                    {(sidebarOpen || true) && (
-                        <motion.aside
+                    <motion.aside
                             initial={false}
                             className={`
                                 ${sidebarOpen ? 'fixed inset-0 z-40 flex' : 'hidden lg:flex'}
@@ -319,8 +318,7 @@ export default function AdminDashboard() {
                                     Logout
                                 </button>
                             </div>
-                        </motion.aside>
-                    )}
+                    </motion.aside>
                 </AnimatePresence>
 
                 {/* ── Main Content ── */}
