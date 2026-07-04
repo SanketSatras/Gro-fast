@@ -10,25 +10,26 @@ import {
     ShoppingCart, Search, MapPin, ChevronDown,
     Star, Clock, LogOut, Store, Zap, ArrowRight,
     ShieldCheck, RefreshCw, Truck, Award, ChevronRight,
-    Sparkles, TrendingUp
+    Sparkles, TrendingUp, Leaf, Egg, Cookie, Croissant,
+    CupSoda, Coffee, IceCream, Flame, Wheat, Heart
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shop } from "@/lib/data";
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────── DATA ──────────────── */
 const CATEGORIES = [
-    { label: "Fruits & Veg",   emoji: "ðŸ¥¦", color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
-    { label: "Dairy & Bread",  emoji: "ðŸ¥›", color: "bg-blue-50   text-blue-700   border-blue-100"   },
-    { label: "Snacks",         emoji: "ðŸŸ", color: "bg-amber-50  text-amber-700  border-amber-100"  },
-    { label: "Bakery",         emoji: "ðŸ¥–", color: "bg-orange-50 text-orange-700 border-orange-100" },
-    { label: "Beverages",      emoji: "ðŸ¥¤", color: "bg-purple-50 text-purple-700 border-purple-100" },
-    { label: "Breakfast",      emoji: "ðŸ¥£", color: "bg-pink-50   text-pink-700   border-pink-100"   },
-    { label: "Sweet Tooth",    emoji: "ðŸ«", color: "bg-rose-50   text-rose-700   border-rose-100"   },
-    { label: "Tea & Coffee",   emoji: "â˜•", color: "bg-yellow-50 text-yellow-700 border-yellow-100" },
-    { label: "Masala",         emoji: "ðŸŒ¶ï¸", color: "bg-red-50    text-red-700    border-red-100"    },
-    { label: "Cleaning",       emoji: "ðŸ§¹", color: "bg-cyan-50   text-cyan-700   border-cyan-100"   },
-    { label: "Paan Corner",    emoji: "ðŸƒ", color: "bg-lime-50   text-lime-700   border-lime-100"   },
-    { label: "Atta & Rice",    emoji: "ðŸŒ¾", color: "bg-stone-50  text-stone-700  border-stone-100"  },
+    { label: "Fruits & Veg",   icon: Leaf,      color: "bg-emerald-50 text-emerald-700 border-emerald-100/50" },
+    { label: "Dairy & Bread",  icon: Egg,       color: "bg-blue-50   text-blue-700   border-blue-100/50"   },
+    { label: "Snacks",         icon: Cookie,    color: "bg-amber-50  text-amber-700  border-amber-100/50"  },
+    { label: "Bakery",         icon: Croissant, color: "bg-orange-50 text-orange-700 border-orange-100/50" },
+    { label: "Beverages",      icon: CupSoda,   color: "bg-purple-50 text-purple-700 border-purple-100/50" },
+    { label: "Breakfast",      icon: Coffee,    color: "bg-pink-50   text-pink-700   border-pink-100/50"   },
+    { label: "Sweet Tooth",    icon: IceCream,  color: "bg-rose-50   text-rose-700   border-rose-100/50"   },
+    { label: "Tea & Coffee",   icon: Coffee,    color: "bg-yellow-50 text-yellow-700 border-yellow-100/50" },
+    { label: "Masala",         icon: Flame,     color: "bg-red-50    text-red-700    border-red-100/50"    },
+    { label: "Cleaning",       icon: Sparkles,  color: "bg-cyan-50   text-cyan-700   border-cyan-100/50"   },
+    { label: "Paan Corner",    icon: Heart,     color: "bg-lime-50   text-lime-700   border-lime-100/50"   },
+    { label: "Atta & Rice",    icon: Wheat,     color: "bg-stone-50  text-stone-700  border-stone-100/50"  },
 ];
 
 const TRUST_BADGES = [
@@ -42,7 +43,7 @@ const PROMO_BANNERS = [
     {
         gradient: "from-[#0f4c2a] to-[#0f9d58]",
         accent: "#4ade80",
-        tag: "ðŸ›’ All Essentials",
+        tag: "All Essentials",
         title: "All your needs\ndelivered fast!",
         sub: "Vegetables, fruits, pulses & daily essentials",
         cta: "Shop Now",
@@ -52,7 +53,7 @@ const PROMO_BANNERS = [
     {
         gradient: "from-[#0d3569] to-[#1976d2]",
         accent: "#60a5fa",
-        tag: "ðŸ¥› Dairy",
+        tag: "Dairy Fresh",
         title: "Farm-fresh dairy\nat your door",
         sub: "Milk, paneer, butter, curd & more",
         cta: "Order Now",
@@ -62,7 +63,7 @@ const PROMO_BANNERS = [
     {
         gradient: "from-[#5c2d0a] to-[#c4813a]",
         accent: "#fbbf24",
-        tag: "ðŸ¥– Bakery",
+        tag: "Bakery Fresh",
         title: "Freshly baked\nevery morning",
         sub: "Bread, muffins, cakes & pastries",
         cta: "Order Now",
@@ -71,7 +72,7 @@ const PROMO_BANNERS = [
     },
 ];
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ANIMATION VARIANTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ──────────────── ANIMATION VARIANTS ──────────────── */
 const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     show: (i = 0) => ({
@@ -291,7 +292,7 @@ const LocationSelection = () => {
                         </div>
                     </div>
                     <div className="flex overflow-x-auto gap-3 pb-2 no-scrollbar">
-                        {CATEGORIES.map(({ label, emoji, color }, i) => (
+                        {CATEGORIES.map(({ label, icon: Icon, color }, i) => (
                             <motion.div
                                 key={label}
                                 custom={i}
@@ -302,7 +303,7 @@ const LocationSelection = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className={`shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-2xl border text-sm font-bold cursor-pointer select-none transition-shadow hover:shadow-md ${color}`}
                             >
-                                <span className="text-base">{emoji}</span>
+                                <Icon className="w-4 h-4 shrink-0" />
                                 {label}
                             </motion.div>
                         ))}
