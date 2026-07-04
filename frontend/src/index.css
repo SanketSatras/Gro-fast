@@ -201,4 +201,8 @@
   .shadow-lift {
     box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
   }
+
+  .font-mono {
+    font-family: 'Courier New', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
 }
