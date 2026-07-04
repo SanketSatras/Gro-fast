@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { CartDrawer } from "@/components/marketplace/CartDrawer";
 import { LocationModal } from "@/components/marketplace/LocationModal";
+import { BottomNav } from "@/components/marketplace/BottomNav";
 import {
     ShoppingCart, Search, MapPin, ChevronDown,
     Star, Clock, LogOut, Store, Zap, ArrowRight,
@@ -86,6 +87,8 @@ const LocationSelection = () => {
     const [isLocationOpen, setIsLocationOpen] = useState(false);
     const [customLocation, setCustomLocation] = useState(localStorage.getItem("grofast-custom-location"));
     const { user, logout, isAuthenticated } = useAuth();
+    const { shops, isLoading } = useShops();
+    const cart = useCart();
 
     const sortedShops = [...shops].sort((a, b) => b.id.localeCompare(a.id));
     const filtered = sortedShops.filter(
