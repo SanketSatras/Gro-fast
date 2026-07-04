@@ -1,9 +1,9 @@
-const CACHE_NAME = 'grofast-v3'; // Changed version to force update
+﻿const CACHE_NAME = 'grofast-v3'; // Changed version to force update
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
-  '/manifest.webmanifest',
-  '/favicon.ico'
+  '/manifest.webmanifest'
+
 ];
 
 self.addEventListener('install', (event) => {
@@ -71,3 +71,4 @@ self.addEventListener('notificationclick', (event) => {
     clients.openWindow(event.notification.data.url)
   );
 });
+

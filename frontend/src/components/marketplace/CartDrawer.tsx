@@ -1,5 +1,5 @@
 import { Sheet, SheetContent } from '@/components/ui/sheet';
-import { Minus, Plus, Trash2, ShoppingBag, X, Zap, ArrowRight, Tag } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, Zap, ArrowRight, Tag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CartItem } from '@/lib/data';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ export function CartDrawer({ open, onOpenChange, items, subtotal, onUpdateQuanti
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
             <SheetContent
-                className="w-full sm:max-w-[400px] flex flex-col p-0 gap-0 bg-[#F6F8FB] border-l border-slate-100"
+                className="w-full sm:max-w-[400px] flex flex-col p-0 gap-0 bg-[#F6F8FB] border-l border-slate-100 [&>button:first-of-type]:top-5 [&>button:first-of-type]:right-5 [&>button:first-of-type]:rounded-xl [&>button:first-of-type]:border [&>button:first-of-type]:border-slate-200 [&>button:first-of-type]:bg-white [&>button:first-of-type]:w-8 [&>button:first-of-type]:h-8 [&>button:first-of-type]:opacity-100 [&>button:first-of-type]:hover:bg-slate-50"
             >
                 {/* ── Header ── */}
                 <div className="bg-white px-5 pt-5 pb-4 border-b border-slate-100 shadow-sm">
@@ -40,12 +40,7 @@ export function CartDrawer({ open, onOpenChange, items, subtotal, onUpdateQuanti
                                 </p>
                             </div>
                         </div>
-                        <button
-                            onClick={() => onOpenChange(false)}
-                            className="w-8 h-8 rounded-xl border border-slate-200 flex items-center justify-center hover:bg-slate-50 hover:border-slate-300 transition-all"
-                        >
-                            <X className="w-4 h-4 text-slate-500" />
-                        </button>
+                        <div className="w-8" />{/* spacer — close btn is the built-in SheetContent one */}
                     </div>
 
                     {/* Free delivery banner */}
