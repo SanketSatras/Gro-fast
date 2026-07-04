@@ -118,17 +118,17 @@ const LocationSelection = () => {
                             GRO<span className="text-[#0f9d58]">FAST</span>
                         </span>
                     </Link>
-                    <Link to={isAuthenticated ? "/profile" : "/auth/customer"} className="hidden md:flex items-center gap-2 shrink-0 pl-4 border-l border-slate-100 group">
-                        <div className="flex flex-col leading-none">
-                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Delivery in</span>
-                            <span className="text-[13px] font-black text-slate-800 flex items-center gap-1">10 min <ChevronDown className="w-3 h-3 text-slate-400 group-hover:text-[#0f9d58] transition-colors" /></span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-semibold border-l pl-3 ml-1">
-                            <MapPin className="w-3.5 h-3.5 text-[#0f9d58] shrink-0" />
-                            <span className="max-w-[130px] truncate">{deliveryAddress ?? (isAuthenticated ? "Add address" : "Set location")}</span>
-                            <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />
-                        </div>
+                    <Link to={isAuthenticated ? "/profile" : "/auth/customer"} className="flex items-center gap-1.5 shrink-0 pl-3 border-l border-slate-100 group">
+                        <MapPin className="w-3.5 h-3.5 text-[#0f9d58] shrink-0" />
+                        <span className="text-xs font-semibold text-slate-500 max-w-[100px] sm:max-w-[130px] truncate">
+                            {deliveryAddress ?? (isAuthenticated ? "Add address" : "Set location")}
+                        </span>
+                        <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />
                     </Link>
+
+
+
+
                     <div className="hidden sm:flex flex-1 relative">
                         <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                         <input id="location-search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search shops or products..." autoComplete="off" className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0f9d58]/25 focus:border-[#0f9d58]/40 transition-all" />
@@ -189,7 +189,7 @@ const LocationSelection = () => {
                             className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 px-3.5 py-1.5 rounded-full mb-5"
                         >
                             <Zap className="w-3.5 h-3.5 text-yellow-300" />
-                            <span className="text-white text-[11px] font-bold uppercase tracking-widest">Fastest Delivery Â· 10 min</span>
+                            <span className="text-white text-[11px] font-bold uppercase tracking-widest">Fastest Delivery · 10 min</span>
                         </motion.div>
 
                         <motion.h1
@@ -208,7 +208,7 @@ const LocationSelection = () => {
                             transition={{ delay: 0.35 }}
                             className="text-white/80 text-sm md:text-base font-medium mb-7 leading-relaxed max-w-sm"
                         >
-                            Get farm-fresh goodness â€” fruits, vegetables, dairy & more from local stores near you.
+                            Get farm-fresh goodness, fruits, vegetables, dairy and more from local stores near you.
                         </motion.p>
 
                         <motion.div
