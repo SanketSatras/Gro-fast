@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Search, Navigation, X, Check } from 'lucide-react';
+import { MapPin, Search, Navigation, X, Check, Home, Briefcase } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 
 interface LocationModalProps {
@@ -53,6 +53,8 @@ export function LocationModal({ isOpen, onClose, onSelectLocation }: LocationMod
     const filteredSuggestions = search.trim() === "" 
         ? SUGGESTIONS 
         : SUGGESTIONS.filter(s => s.toLowerCase().includes(search.toLowerCase()));
+
+    const savedAddresses = user?.addresses || [];
 
     return (
         <AnimatePresence>
@@ -123,6 +125,41 @@ export function LocationModal({ isOpen, onClose, onSelectLocation }: LocationMod
                                         {isLocating ? "Locating..." : "Enable"}
                                     </button>
                                 </div>
+
+                                {/* Saved Addresses Section (Zomato/Swiggy style) */}
+                                {user && savedAddresses.length > 0 && search.trim() === "" && (
+                                    <div className="space-y-2 text-left">
+                                        <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Saved Addresses</h5>
+                                        <div className="grid gap-2">
+                                            {savedAddresses.map((addr: any) => {
+                                                const isHome = addr.label?.toLowerCase() === 'home';
+                                                const isOffice = addr.label?.toLowerCase() === 'office' || addr.label?.toLowerCase() === 'work';
+                                                
+                                                return (
+                                                    <button
+                                                        key={addr.id}
+                                                        onClick={() => {
+                                                            onSelectLocation(`${addr.address}, Pin: ${addr.pincode}`);
+                                                            onClose();
+                                                        }}
+                                                        className="w-full text-left p-3.5 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-[#0f9d58]/20 transition-all flex items-start gap-3 group"
+                                                    >
+                                                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${isHome ? 'bg-blue-50 text-blue-600' : isOffice ? 'bg-amber-50 text-amber-600' : 'bg-red-50 text-red-600'}`}>
+                                                            {isHome ? <Home className="w-4 h-4" /> : isOffice ? <Briefcase className="w-4 h-4" /> : <MapPin className="w-4 h-4" />}
+                                                        </div>
+                                                        <div className="flex-1 min-w-0">
+                                                            <h6 className="text-xs font-bold text-slate-800 flex items-center gap-1.5 uppercase tracking-wider leading-none">
+                                                                {addr.label}
+                                                            </h6>
+                                                            <p className="text-[11px] text-slate-500 font-medium leading-relaxed truncate mt-1">{addr.address}</p>
+                                                            <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">Pin: {addr.pincode}</p>
+                                                        </div>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
 
                                 {/* Suggestions list */}
                                 {search.trim() !== "" ? (
