@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useShops } from "@/hooks/useShops";
 import { useAuth } from "@/hooks/useAuth";
@@ -14,20 +14,20 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { Shop } from "@/lib/data";
 
-/* ─────────── DATA ─────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const CATEGORIES = [
-    { label: "Fruits & Veg",   emoji: "🥦", color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
-    { label: "Dairy & Bread",  emoji: "🥛", color: "bg-blue-50   text-blue-700   border-blue-100"   },
-    { label: "Snacks",         emoji: "🍟", color: "bg-amber-50  text-amber-700  border-amber-100"  },
-    { label: "Bakery",         emoji: "🥖", color: "bg-orange-50 text-orange-700 border-orange-100" },
-    { label: "Beverages",      emoji: "🥤", color: "bg-purple-50 text-purple-700 border-purple-100" },
-    { label: "Breakfast",      emoji: "🥣", color: "bg-pink-50   text-pink-700   border-pink-100"   },
-    { label: "Sweet Tooth",    emoji: "🍫", color: "bg-rose-50   text-rose-700   border-rose-100"   },
-    { label: "Tea & Coffee",   emoji: "☕", color: "bg-yellow-50 text-yellow-700 border-yellow-100" },
-    { label: "Masala",         emoji: "🌶️", color: "bg-red-50    text-red-700    border-red-100"    },
-    { label: "Cleaning",       emoji: "🧹", color: "bg-cyan-50   text-cyan-700   border-cyan-100"   },
-    { label: "Paan Corner",    emoji: "🍃", color: "bg-lime-50   text-lime-700   border-lime-100"   },
-    { label: "Atta & Rice",    emoji: "🌾", color: "bg-stone-50  text-stone-700  border-stone-100"  },
+    { label: "Fruits & Veg",   emoji: "ðŸ¥¦", color: "bg-emerald-50 text-emerald-700 border-emerald-100" },
+    { label: "Dairy & Bread",  emoji: "ðŸ¥›", color: "bg-blue-50   text-blue-700   border-blue-100"   },
+    { label: "Snacks",         emoji: "ðŸŸ", color: "bg-amber-50  text-amber-700  border-amber-100"  },
+    { label: "Bakery",         emoji: "ðŸ¥–", color: "bg-orange-50 text-orange-700 border-orange-100" },
+    { label: "Beverages",      emoji: "ðŸ¥¤", color: "bg-purple-50 text-purple-700 border-purple-100" },
+    { label: "Breakfast",      emoji: "ðŸ¥£", color: "bg-pink-50   text-pink-700   border-pink-100"   },
+    { label: "Sweet Tooth",    emoji: "ðŸ«", color: "bg-rose-50   text-rose-700   border-rose-100"   },
+    { label: "Tea & Coffee",   emoji: "â˜•", color: "bg-yellow-50 text-yellow-700 border-yellow-100" },
+    { label: "Masala",         emoji: "ðŸŒ¶ï¸", color: "bg-red-50    text-red-700    border-red-100"    },
+    { label: "Cleaning",       emoji: "ðŸ§¹", color: "bg-cyan-50   text-cyan-700   border-cyan-100"   },
+    { label: "Paan Corner",    emoji: "ðŸƒ", color: "bg-lime-50   text-lime-700   border-lime-100"   },
+    { label: "Atta & Rice",    emoji: "ðŸŒ¾", color: "bg-stone-50  text-stone-700  border-stone-100"  },
 ];
 
 const TRUST_BADGES = [
@@ -41,7 +41,7 @@ const PROMO_BANNERS = [
     {
         gradient: "from-[#0f4c2a] to-[#0f9d58]",
         accent: "#4ade80",
-        tag: "🛒 All Essentials",
+        tag: "ðŸ›’ All Essentials",
         title: "All your needs\ndelivered fast!",
         sub: "Vegetables, fruits, pulses & daily essentials",
         cta: "Shop Now",
@@ -51,7 +51,7 @@ const PROMO_BANNERS = [
     {
         gradient: "from-[#0d3569] to-[#1976d2]",
         accent: "#60a5fa",
-        tag: "🥛 Dairy",
+        tag: "ðŸ¥› Dairy",
         title: "Farm-fresh dairy\nat your door",
         sub: "Milk, paneer, butter, curd & more",
         cta: "Order Now",
@@ -61,7 +61,7 @@ const PROMO_BANNERS = [
     {
         gradient: "from-[#5c2d0a] to-[#c4813a]",
         accent: "#fbbf24",
-        tag: "🥖 Bakery",
+        tag: "ðŸ¥– Bakery",
         title: "Freshly baked\nevery morning",
         sub: "Bread, muffins, cakes & pastries",
         cta: "Order Now",
@@ -70,7 +70,7 @@ const PROMO_BANNERS = [
     },
 ];
 
-/* ─────────── ANIMATION VARIANTS ─────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ ANIMATION VARIANTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const fadeUp = {
     hidden: { opacity: 0, y: 20 },
     show: (i = 0) => ({
@@ -80,7 +80,7 @@ const fadeUp = {
 };
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } };
 
-/* ─────────── MAIN PAGE ─────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MAIN PAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const LocationSelection = () => {
     const [search, setSearch] = useState("");
     const { user, logout, isAuthenticated } = useAuth();
@@ -107,7 +107,7 @@ const LocationSelection = () => {
     return (
         <div className="min-h-screen bg-[#F6F8FB] font-sans antialiased">
 
-            {/* ──────────────── NAVBAR ──────────────── */}
+            {/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-4">
 
@@ -135,7 +135,7 @@ const LocationSelection = () => {
                         <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-semibold border-l pl-3 ml-1">
                             <MapPin className="w-3.5 h-3.5 text-[#0f9d58] shrink-0" />
                             <span className="max-w-[150px] truncate">
-                                {deliveryAddress ?? (isAuthenticated ? "Add address →" : "Set location")}
+                                {deliveryAddress ?? (isAuthenticated ? "Add address â†’" : "Set location")}
                             </span>
                             <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />
                         </div>
@@ -148,7 +148,7 @@ const LocationSelection = () => {
                             id="location-search"
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            placeholder='Search shops or products…'
+                            placeholder='Search shops or productsâ€¦'
                             autoComplete="off"
                             className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0f9d58]/25 focus:border-[#0f9d58]/40 transition-all"
                         />
@@ -200,10 +200,10 @@ const LocationSelection = () => {
                 </div>
             </header>
 
-            {/* ──────────────── MAIN ──────────────── */}
+            {/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MAIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-10 pb-32">
 
-                {/* ── 1. HERO BANNER ── */}
+                {/* â”€â”€ 1. HERO BANNER â”€â”€ */}
                 <motion.div
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -225,7 +225,7 @@ const LocationSelection = () => {
                             className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 px-3.5 py-1.5 rounded-full mb-5"
                         >
                             <Zap className="w-3.5 h-3.5 text-yellow-300" />
-                            <span className="text-white text-[11px] font-bold uppercase tracking-widest">Fastest Delivery · 10 min</span>
+                            <span className="text-white text-[11px] font-bold uppercase tracking-widest">Fastest Delivery Â· 10 min</span>
                         </motion.div>
 
                         <motion.h1
@@ -244,7 +244,7 @@ const LocationSelection = () => {
                             transition={{ delay: 0.35 }}
                             className="text-white/80 text-sm md:text-base font-medium mb-7 leading-relaxed max-w-sm"
                         >
-                            Get farm-fresh goodness — fruits, vegetables, dairy & more from local stores near you.
+                            Get farm-fresh goodness â€” fruits, vegetables, dairy & more from local stores near you.
                         </motion.p>
 
                         <motion.div
@@ -289,13 +289,13 @@ const LocationSelection = () => {
                         </div>
                         <div className="w-px h-8 bg-white/20" />
                         <div className="text-center">
-                            <p className="text-white font-black text-lg leading-none">4.8★</p>
+                            <p className="text-white font-black text-lg leading-none">4.8â˜…</p>
                             <p className="text-white/60 text-[10px] font-bold uppercase">Rating</p>
                         </div>
                     </div>
                 </motion.div>
 
-                {/* ── 2. TRUST BADGES ── */}
+                {/* â”€â”€ 2. TRUST BADGES â”€â”€ */}
                 <motion.div
                     variants={stagger} initial="hidden" animate="show"
                     className="grid grid-cols-2 sm:grid-cols-4 gap-3"
@@ -312,7 +312,7 @@ const LocationSelection = () => {
                     ))}
                 </motion.div>
 
-                {/* ── 3. CATEGORIES ── */}
+                {/* â”€â”€ 3. CATEGORIES â”€â”€ */}
                 <section id="categories">
                     <div className="flex items-center justify-between mb-5">
                         <div>
@@ -342,7 +342,7 @@ const LocationSelection = () => {
                     </div>
                 </section>
 
-                {/* ── 4. PROMO BANNERS ── */}
+                {/* â”€â”€ 4. PROMO BANNERS â”€â”€ */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {PROMO_BANNERS.map((b, i) => (
                         <Link to={b.link} key={i}>
@@ -378,7 +378,7 @@ const LocationSelection = () => {
                     ))}
                 </div>
 
-                {/* ── 5. SHOPS SECTION ── */}
+                {/* â”€â”€ 5. SHOPS SECTION â”€â”€ */}
                 <section id="nearby-shops">
                     <div className="flex items-center justify-between mb-6">
                         <div>
@@ -408,7 +408,7 @@ const LocationSelection = () => {
                         </div>
                     ) : filtered.length === 0 ? (
                         <div className="text-center py-24 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                            <p className="text-5xl mb-4">🔍</p>
+                            <p className="text-5xl mb-4">ðŸ”</p>
                             <h3 className="font-black text-slate-800 text-lg">No stores found</h3>
                             <p className="text-slate-400 text-sm mt-2 max-w-xs mx-auto">
                                 We couldn't find "{search}". Try a different name or location.
@@ -430,7 +430,7 @@ const LocationSelection = () => {
                 </section>
             </main>
 
-            {/* ──────────────── FOOTER ──────────────── */}
+            {/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <footer className="bg-slate-950 text-slate-400">
                 {/* Top brand strip */}
                 <div className="border-b border-slate-800/70">
@@ -458,29 +458,70 @@ const LocationSelection = () => {
 
                 {/* Link columns */}
                 <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-2 sm:grid-cols-4 gap-8">
-                    {[
-                        { title: "Shop", links: ["Fruits & Vegetables", "Dairy & Eggs", "Snacks", "Beverages", "Baby Care"] },
-                        { title: "Company", links: ["About Us", "Careers", "Press", "Blog", "Partner with Us"] },
-                        { title: "Support", links: ["Help Center", "Track Order", "Return Policy", "Contact Us", "FAQs"] },
-                        { title: "Legal", links: ["Privacy Policy", "Terms of Service", "Cookie Policy", "Accessibility"] },
-                    ].map(({ title, links }) => (
-                        <div key={title}>
-                            <p className="text-white font-black text-sm mb-4 uppercase tracking-wider">{title}</p>
-                            <ul className="space-y-2.5">
-                                {links.map((l) => (
-                                    <li key={l}>
-                                        <span className="text-sm text-slate-500 hover:text-white cursor-pointer transition-colors">{l}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                    <div>
+                        <p className="text-white font-black text-sm mb-4 uppercase tracking-wider">Shop</p>
+                        <ul className="space-y-2.5">
+                            {[
+                                { label: "Fruits & Vegetables", to: "/category/vegetables" },
+                                { label: "Dairy & Eggs",        to: "/category/dairy"      },
+                                { label: "Snacks",              to: "/category/snacks"     },
+                                { label: "Beverages",           to: "/category/beverages"  },
+                                { label: "Baby Care",           to: "/category/baby-care"  },
+                            ].map(({ label, to }) => (
+                                <li key={label} className="list-none">
+                                    <Link to={to} className="text-sm text-slate-500 hover:text-white transition-colors">{label}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div>
+                        <p className="text-white font-black text-sm mb-4 uppercase tracking-wider">Company</p>
+                        <ul className="space-y-2.5">
+                            {[
+                                { label: "About Us",        href: "#"            },
+                                { label: "Careers",         href: "#"            },
+                                { label: "Press",           href: "#"            },
+                                { label: "Blog",            href: "#"            },
+                                { label: "Partner with Us", href: "/auth/vendor" },
+                            ].map(({ label, href }) => (
+                                <li key={label} className="list-none">
+                                    <a href={href} className="text-sm text-slate-500 hover:text-white transition-colors">{label}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div>
+                        <p className="text-white font-black text-sm mb-4 uppercase tracking-wider">Support</p>
+                        <ul className="space-y-2.5">
+                            {[
+                                { label: "Help Center",   href: "#"                        },
+                                { label: "Track Order",   href: "/order-tracking/demo"      },
+                                { label: "Return Policy", href: "#"                        },
+                                { label: "Contact Us",    href: "mailto:support@grofast.in" },
+                                { label: "FAQs",          href: "#"                        },
+                            ].map(({ label, href }) => (
+                                <li key={label} className="list-none">
+                                    <a href={href} className="text-sm text-slate-500 hover:text-white transition-colors">{label}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div>
+                        <p className="text-white font-black text-sm mb-4 uppercase tracking-wider">Legal</p>
+                        <ul className="space-y-2.5">
+                            {["Privacy Policy", "Terms of Service", "Cookie Policy", "Accessibility"].map((l) => (
+                                <li key={l} className="list-none">
+                                    <a href="#" className="text-sm text-slate-500 hover:text-white transition-colors">{l}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
 
                 {/* Bottom bar */}
                 <div className="border-t border-slate-800/70">
                     <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-600">
-                        <p>© 2025 GROFAST Technologies Pvt. Ltd. All rights reserved.</p>
+                        <p>Â© 2025 GROFAST Technologies Pvt. Ltd. All rights reserved.</p>
                         <div className="flex items-center gap-1 text-[#0f9d58]/60">
                             <span className="w-1.5 h-1.5 rounded-full bg-[#0f9d58] animate-pulse" />
                             <span className="text-xs font-bold text-[#0f9d58]/70">All systems operational</span>
@@ -503,7 +544,7 @@ const LocationSelection = () => {
     );
 };
 
-/* ─────────── SHOP CARD ─────────── */
+/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SHOP CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 const ShopCard = ({ shop, index }: { shop: Shop; index: number }) => (
     <motion.div
         variants={fadeUp}
@@ -530,7 +571,7 @@ const ShopCard = ({ shop, index }: { shop: Shop; index: number }) => (
                                 ? "bg-[#0f9d58] text-white shadow-md shadow-[#0f9d58]/30"
                                 : "bg-slate-800/80 backdrop-blur-sm text-slate-300"
                         }`}>
-                            {shop.isOpen ? "● Open" : "○ Closed"}
+                            {shop.isOpen ? "â— Open" : "â—‹ Closed"}
                         </span>
                     </div>
 
